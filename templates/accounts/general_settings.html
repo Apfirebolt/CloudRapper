@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Change Username and Password
+{% endblock %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-warning" value="Update Account Settings">
+</form>
+
+{% endblock %}

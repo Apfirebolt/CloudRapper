@@ -1,0 +1,35 @@
+<style>
+    #play-song {
+        background-color: cornflowerblue;
+        margin: 1.2rem auto;
+
+    }
+
+    audio {
+        width: 80%;
+        margin: 1.2rem auto;
+    }
+
+    p {
+        font-family: "comic sans ms", verdana, arial, tahoma, sans-serif;
+        font-size: 1.4rem;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Song Details
+{% endblock %}
+
+{% block content %}
+    <div class="container my-3 p-3 text-center" id="play-song">
+        <p>Song Name : {{ object.song_name }}</p>
+        <p>Album Name : {{ object.album_name }}</p>
+
+        <audio controls>
+            <source src="{{ object.song_file.url }}" >
+        </audio>
+    </div>
+{% endblock %}

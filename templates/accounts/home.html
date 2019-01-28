@@ -1,0 +1,96 @@
+<style>
+    .card-img-top {
+        height: 200px;
+        width: 250px;
+    }
+
+    /* Styling Recommended Songs Section */
+
+
+</style>
+
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block title %}
+CloudRapper - Accounts Section
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <div class="container-fluid">
+            <div class="card text-center mx-auto my-4 p-3" style="width:500px">
+                <img class="card-img-top" src="{{ current_user.profile_pic.url }}" alt="Card image">
+
+                <h4 class="card-title">Hello {{ current_user.user }}!</h4>
+                <a href="{{ current_user.portfolio }}" class="btn btn-primary my-2">Your Portfolio link</a>
+                <a href="{% url 'accounts:saved_songs' %}" class="btn btn-primary my-2">Your Songs List</a>
+                <a href="{% url 'accounts:profile_settings' pk=current_user.user.id %}" class="btn btn-primary my-2">Change Profile Settings</a>
+                <a href="{% url 'accounts:settings' pk=current_user.user.id %}" class="btn btn-primary my-2">Change Image and Portfolio</a>
+            </div>
+        </div>
+    {% endif %}
+
+<div class="container-fluid" id="recommended-songs">
+    <h2 class="text-center p-2">Song Recommendations to you by your friends</h2>
+
+    <div class="container">
+        <div class="row my-3 p-3">
+
+        <div class="col-sm-4 mb-3">
+            <h4>Song Name</h4>
+        </div>
+
+        <div class="col-sm-4 mb-3">
+            <h4>Recommended By</h4>
+        </div>
+
+        <div class="col-sm-4 mb-3">
+            <h4>Song url</h4>
+        </div>
+
+        {% for each_song in recommended_songs %}
+            <div class="col-sm-4">
+                <p>{{ each_song.recommended_song }}</p>
+            </div>
+
+            <div class="col-sm-4">
+                <p>{{ each_song.recommended_by }}</p>
+            </div>
+
+            <div class="col-sm-4">
+                <a href="{% url 'music:song-detail' pk=each_song.recommended_song_id %}" class="btn btn-warning">Play Song</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<h2>Your friends :</h2>
+
+
+    <div class="row">
+    {% for each_friend in friends %}
+
+        <div class="col-sm-3">
+            <div class="card text-center mx-auto my-4 p-3">
+                    <img class="card-img-top" src="{{ each_friend.profile_pic.url }}" alt="Card image">
+
+                    <h4 class="card-title">{{ each_friend.user }}</h4>
+                    <a href="{% url 'accounts:recommend_song' pk=each_friend.user_id %}" class="btn btn-primary my-2">Recommend a song to {{ each_friend.user }}</a>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+
+
+
+    <script>
+    $(document).ready(function() {
+       console.log('Document loaded now!!');
+
+
+       });
+    </script>
+{% endblock %}

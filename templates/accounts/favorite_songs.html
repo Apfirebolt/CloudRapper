@@ -1,0 +1,56 @@
+<style>
+    #saved-songs {
+        color: cornflowerblue;
+        background-color: azure;
+        box-shadow: 3px 3px 6px #FFF;
+        padding: 1.2rem;
+        font-family: "Roboto", sans-serif;
+        font-size: 1.4rem;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block title %}
+Favorite Songs
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid my-3" id="saved-songs">
+
+    <h2 class="text-center p-2">Your Saved Song List</h2>
+
+    <div class="container">
+        <div class="row my-3 p-3">
+
+        <div class="col-sm-6 mb-3">
+            <h4>Song Name</h4>
+        </div>
+
+        <div class="col-sm-6 mb-3">
+            <h4>Song url</h4>
+        </div>
+
+        {% for each_song in song_list %}
+            <div class="col-sm-6">
+                <p>{{ each_song.song }}</p>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="{% url 'music:song-detail' pk=each_song.song_id %}" class="btn btn-warning w-50">Play Song</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+    <script>
+    $(document).ready(function() {
+       console.log('Document loaded now!!');
+
+
+       });
+    </script>
+{% endblock %}
