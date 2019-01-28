@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}CloudRapper - Your online music store {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Cabin|Roboto|Titillium+Web" rel="stylesheet">
+    {% load static %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-sm bg-light">
+      <div class="navbar-brand">
+          <h2>Cloud Rapper</h2>
+      </div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'homepage' %}">About CloudRapper</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'music:album-list' %}">Music</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:all_users' %}">Users</a>
+        </li>
+
+        {% if user.is_authenticated %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:dashboard' %}">Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:user_logout' %}">Logout</a>
+            </li>
+
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:user_login' %}">Login/Register</a>
+            </li>
+
+        {% endif %}
+        </ul>
+
+    </nav>
+
+    {% block content %}
+    <div class="container-fluid text-center my-3">
+        <h4>Welcome to the CloudRapper.com - Your personalized online music store</h4>
+    <p>
+        Please enjoy your stay and explore what you can do here :
+    </p>
+
+    <ol class="text-left">
+        <li>You can create an account (too obvious isn't it ?)</li>
+        <li>You can search for other users and add them as your friends, (you love socializing, don't you ?)</li>
+        <li>You can search for latest addition in music category for songs and albums. </li>
+        <li>You can add songs to your dashboard and favorite it.</li>
+        <li>Song and Albums for the site would be added by admin users.</li>
+    </ol>
+
+        <img src="{% static 'images/11.jpg' %}" alt="Image not available" height="400" width="800">
+    </div>
+
+    {% endblock %}
+</div>
+
+
+
+</body>
+</html>

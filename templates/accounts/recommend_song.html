@@ -1,0 +1,122 @@
+<style>
+    #recommend-songs {
+        position: relative;
+        color: cornflowerblue;
+        background-color: azure;
+        box-shadow: 3px 3px 6px #FFF;
+        margin: 1.2rem;
+        padding: 1.2rem;
+        font-family: "Roboto", sans-serif;
+        font-size: 1.4rem;
+    }
+
+    #add-song-message {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        background-color: coral;
+        width: 500px;
+        height: 400px;
+        border-radius: 1rem;
+        box-shadow: 5px 5px 6px #FFF;
+        z-index: 10;
+        font-family: "Anton", sans-serif;
+        color: mintcream;
+        text-align: center;
+        padding: 1rem;
+        display: none;
+    }
+
+</style>
+
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block title %}
+Favorite Songs
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid" id="recommend-songs">
+
+    <h2 class="text-center p-2">Your Saved Song List</h2>
+
+    <div class="container">
+
+        <div class="container" id="add-song-message">
+            <h1 class="show-message"></h1>
+            <button class="btn btn-primary w-50" id="closeThis">OK</button>
+        </div>
+
+        <div class="row my-3 p-3">
+
+        {% for each_song in song_list %}
+            <div class="col-sm-4">
+                <p>{{ each_song.song }}</p>
+            </div>
+
+            <div class="col-sm-8">
+                <button
+                   class="btn btn-warning w-50 m-2 recommendSong" value="{{ friend.username }}">
+                    Recommend this song to {{ friend.username }}
+                </button>
+                <input type="hidden" class="song_name" value="{{ each_song.song }}">
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+    <script>
+    $(document).ready(function() {
+
+        // Ajax method to recommend a song to a friend
+
+        let user_to;
+        let song_name;
+        let user_by;
+
+
+        $('.recommendSong').click(function() {
+           song_name = $(this).next('.song_name').val();
+           user_to = $(this).val();
+           user_by = "{{ request.user.username }}";
+
+           // console.log(song_name);
+           // console.log(user_by);
+           // console.log(user_to);
+
+
+          $.ajax({
+
+            url: '{% url 'accounts:recommend_ajax' %}',
+            type: 'POST',
+            data:
+            {
+                'song_name': song_name,
+                'user_to': user_to,
+                'user_by': user_by,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            cache: false,
+            success: function(data){
+                let message_div = $('.show-message');
+                message_div.empty();
+                message_div.append('You recommended ' + song_name + ' to ' + user_to);
+                $('#add-song-message').fadeIn(500);
+
+		    },
+		    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("some error");
+            }
+          });
+
+          $('#closeThis').click(function() {
+              $('#add-song-message').fadeOut(500);
+          });
+       });
+    });
+    </script>
+{% endblock %}
