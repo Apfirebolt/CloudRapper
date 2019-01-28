@@ -7,6 +7,6 @@ For each user, full account related settings are provided like if they want to c
 
 The project includes following 3rd party libraries :
 
--Django Crispy Forms (For managing and styling CRUD forms using bootstrap)
--Django Rest Framework (For API data interchange)
--Django Clean State (For file handling, deleting the files which are no longer in use)
+<p>-Django Crispy Forms (For managing and styling CRUD forms using bootstrap)</p>
+<p>-Django Rest Framework (For API data interchange)</p>
+<p>-Django Clean State (For file handling, deleting the files which are no longer in use)</p>
