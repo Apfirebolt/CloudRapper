@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
@@ -18,3 +19,25 @@ CloudRapper - Register
 
 {% endif %}
 {% endblock %}
+=======
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+CloudRapper - Register
+{% endblock %}
+
+{% block content %}
+{% if registered %}
+    <h1>Thank you for registering, please enjoy your stay and make yourself comfortable.</h1>
+{% else %}
+    <h3>Please Register here by filling the following form fields : </h3>
+
+    <form enctype="multipart/form-data" method="post">{% csrf_token %}
+        {{ user_form|crispy }}
+        {{ profile_form|crispy }}
+        <input type="submit" class="btn btn-warning" value="Register">
+    </form>
+
+{% endif %}
+{% endblock %}
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6

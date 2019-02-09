@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
@@ -16,4 +17,24 @@
         {{ form|crispy }}
         <input type="submit" class="btn btn-warning" value="Add Song">
     </form>
+=======
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create a New Song
+{% endblock %}
+
+{% block content %}
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-warning" value="Add Song">
+    </form>
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6
 {% endblock %}

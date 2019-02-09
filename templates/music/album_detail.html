@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
     #album_detail {
         background-color: aliceblue;
@@ -28,4 +29,36 @@
 
 
 
+=======
+<style>
+    #album_detail {
+        background-color: aliceblue;
+        font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+        font-size: 1.4rem;
+        color: crimson;
+        width: 70%;
+        margin: 1.2rem auto;
+        padding: 1rem;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Detail Album
+{% endblock %}
+
+{% block content %}
+<div class="container text-center" id="album_detail">
+    <p>Artist name : {{ object.artist_name }}</p>
+    <p>Genre : {{ object.genre }}</p>
+    <p>Album Name : {{ object.album_name }}</p>
+
+    <img src="{{ object.album_cover.url }}" alt="Image not found" height="400" width="600">
+</div>
+
+
+
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6
 {% endblock %}

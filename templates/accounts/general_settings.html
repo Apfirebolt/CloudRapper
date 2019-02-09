@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
@@ -12,4 +13,20 @@
     <input type="submit" class="btn btn-warning" value="Update Account Settings">
 </form>
 
+=======
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Change Username and Password
+{% endblock %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-warning" value="Update Account Settings">
+</form>
+
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6
 {% endblock %}

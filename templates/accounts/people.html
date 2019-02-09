@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
     .card-img-top {
         height: 250px;
@@ -113,3 +114,120 @@ $(document).ready(function() {
 
 
 {% endblock %}
+=======
+<style>
+    .card-img-top {
+        height: 250px;
+        width: 300px;
+    }
+
+    #head-reference {
+        position: relative;
+    }
+
+    #closeThis {
+        color: darksalmon;
+        font-family: "Anton", sans-serif;
+        font-size: 1.4rem;
+        margin: 1rem;
+    }
+
+    #add-friend-message {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        background-color: coral;
+        width: 500px;
+        height: 400px;
+        border-radius: 1rem;
+        box-shadow: 5px 5px 6px #FFF;
+        z-index: 10;
+        font-family: "Anton", sans-serif;
+        color: mintcream;
+        text-align: center;
+        padding: 1rem;
+        display: none;
+    }
+</style>
+
+{% extends 'base.html' %}
+
+{% block title %}
+Search users
+{% endblock %}
+
+{% block content %}
+<h3 class="text-center my-2" id="head-reference">All registered Users of CloudRapper</h3>
+    {{ friend_list }}
+    <div class="container" id="add-friend-message">
+        <h1 class="show-message"></h1>
+        <button class="btn btn-primary w-50" id="closeThis">OK</button>
+    </div>
+
+<div class="row">
+    {% for each_user in people %}
+    <div class="col-sm-4">
+        <div class="card text-center mx-auto my-4 p-3">
+                <img class="card-img-top" src="{{ each_user.profile_pic.url }}" alt="Card image">
+
+                <h4 class="card-title">{{ each_user.user }}!</h4>
+                <a href="{{ each_user.portfolio }}" class="btn btn-primary">Portfolio Link of {{ each_user.user }}</a>
+                {% if each_user.id in friend_list %}
+                    <button class="btn btn-danger my-2 removeFriend" value="{{ each_user.user }}">Unfollow {{ each_user.user }}</button>
+                {% else %}
+                    <button class="btn btn-primary my-2 addFriend" value="{{ each_user.user }}">Follow {{ each_user.user }}</button>
+                {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+$(document).ready(function() {
+
+    // Ajax method to recommend a song to a friend
+
+    let current_user;
+    let follow_user;
+
+    $('.addFriend').click(function() {
+       follow_user = $(this).val();
+       current_user = "{{ request.user.username }}";
+
+       console.log(current_user);
+       console.log(follow_user);
+
+        $.ajax({
+
+        url: '{% url 'accounts:add_friend' %}',
+        type: 'POST',
+        data:
+        {
+            'current_user': current_user,
+            'follow_user': follow_user,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        cache: false,
+        success: function(data){
+            let message_div = $('.show-message');
+            message_div.empty();
+            message_div.append('You are now following ' + follow_user + ' and you can send this person' +
+                                ' your song recommendations ');
+            $('#add-friend-message').fadeIn(500);
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("some error");
+        }
+      });
+
+      $('#closeThis').click(function() {
+          $('#add-friend-message').fadeOut(500);
+      });
+   });
+});
+</script>
+
+
+{% endblock %}
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6

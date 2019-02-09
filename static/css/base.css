@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .navbar {
     font-family: "Titillium+Web", sans-serif;
     color: chocolate;
@@ -10,4 +11,18 @@
 
 .navbar-brand:hover {
     color: cornflowerblue;
+=======
+.navbar {
+    font-family: "Titillium+Web", sans-serif;
+    color: chocolate;
+        }
+
+.navbar-brand {
+    font-family: "Anton", sans-serif;
+    font-size: 1.5rem;
+}
+
+.navbar-brand:hover {
+    color: cornflowerblue;
+>>>>>>> 1dec1ff361299080e76c8789214accf677b3fef6
 }
